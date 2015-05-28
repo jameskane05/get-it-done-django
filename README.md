@@ -1,2 +1,2 @@
-# get-it-done-django
+# Get It Done! (Django Edition)
 A basic task list app using Django and jQuery

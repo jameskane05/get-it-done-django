@@ -1,0 +1,84 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Get It Done!</title>
+
+    <link rel="stylesheet" href="{% static "lib/bootstrap/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "lib/bootstrap/css/bootstrap-theme.min.css" %}">
+
+    <link rel="stylesheet" href="{% static "css/getitdone.css" %}">
+</head>
+<body class="container-fluid">
+
+<header>
+    <h1>Get It Done!</h1>
+</header>
+
+<main class="gid-container">
+
+    <div id="error-container"></div>
+
+    <form id="form-new-task">
+        <div class="form-group">
+            <input id="input-new-task" type="text" class="form-control" placeholder="New Task" autocomplete="off">
+        </div>
+    </form>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Tasks</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tbody id="gid-list">
+
+                {% if tasks|length == 0 %}
+                    <tr id="no-tasks-msg"><td> No tasks</td></tr>
+                {% endif %}
+
+                {%  for task in tasks %}
+                    {% if not task.completed %}
+                        <tr data-task-id="{{ task.id }}">
+                            <td>
+                                <span class='task-name'>{{ task.title }}</span>
+                                <span class="delete glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <table class="table">
+                <tbody id="gid-completed-list">
+                {%  for task in tasks %}
+                    {% if task.completed %}
+                        <tr data-task-id="{{ task.id }}">
+                            <td>
+                                <span class='task-name'>{{ task.title }}</span>
+                                <span class="delete glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</main>
+
+<script type="text/javascript" src="{% static "lib/jquery/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "lib/bootstrap/js/bootstrap.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/getitdone.js" %}"></script>
+
+</body>
+</html>
